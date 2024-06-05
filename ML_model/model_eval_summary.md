@@ -136,7 +136,7 @@
 
 ## Key Insights
 
-1. **Best Model**: XGBoost with regularization and early stopping demonstrated the best performance with the lowest Test MSE of 8.392. This suggests that it effectively captures the underlying patterns in the data without overfitting.
+1. **Best Model**: XGBoost with regularization and early stopping demonstrated the best performance with the lowest Test MSE of 3.778. This suggests that it effectively captures the underlying patterns in the data without overfitting.
 
 2. **PCA Impact**: The application of PCA did not significantly enhance the model's performance, indicating that the original features are more informative than the principal components.
 
