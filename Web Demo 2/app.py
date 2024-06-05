@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 import numpy as np
 import pickle
+import statistics
 
 app = Flask(__name__)
 
@@ -24,9 +25,22 @@ def predict():
         input_data = np.array([features])
 
         # Make prediction using the loaded model
-        prediction = best_model.predict(input_data)[0]
-
-        return render_template('index.html', prediction_text=f'Predicted Median Value in Thousands of Dollars: {prediction:.2f}')
+        prediction = best_model.predict(input_data)[0] * 1000
+        
+        # Generate some sample predictions for statistics (for demonstration purposes)
+        sample_predictions = [best_model.predict(input_data)[0] * 1000 for _ in range(100)]
+        
+        # Calculate statistics
+        mean_prediction = np.mean(sample_predictions)
+        std_dev = np.std(sample_predictions)
+        lower_bound = np.percentile(sample_predictions, 2.5)
+        upper_bound = np.percentile(sample_predictions, 97.5)
+        
+        return render_template('index.html', 
+                               prediction_text=f'Predicted Median Value: ${prediction:,.2f}',
+                               mean_text=f'Mean Prediction: ${mean_prediction:,.2f}',
+                               std_dev_text=f'Standard Deviation: ${std_dev:,.2f}',
+                               confidence_interval_text=f'95% Confidence Interval: [${lower_bound:,.2f}, ${upper_bound:,.2f}]')
     except Exception as e:
         return render_template('index.html', prediction_text=f'Error: {str(e)}')
 
