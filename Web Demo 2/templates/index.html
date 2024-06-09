@@ -1,24 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Predict Median Home Price</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>Machine Learning Model Deployment</title>
   <style>
     body {
-      font-family: 'Roboto', sans-serif;
+      font-family: Arial, sans-serif;
       background-color: #f4f4f4;
       margin: 0;
-      padding: 20px 0;  
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+      padding: 0;
     }
     .container {
-      width: 90%;
-      max-width: 600px;
+      width: 50%;
+      margin: 50px auto;
       padding: 20px;
       background-color: #fff;
       border-radius: 10px;
@@ -26,133 +19,69 @@
     }
     h1 {
       text-align: center;
-      color: #333;
-    }
-    h2 {
-      text-align: center;
-      color: #555;
-      font-weight: normal;
-    }
-    p.description {
-      text-align: center;
-      color: #666;
-      font-size: 14px;
     }
     form {
       display: flex;
       flex-direction: column;
     }
-    label {
-      margin-top: 10px;
-      color: #555;
-    }
-    input[type="text"], select {
+    input[type="text"] {
       padding: 10px;
-      margin-top: 5px;
+      margin-bottom: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
       font-size: 16px;
-      width: 100%;
     }
     button {
       padding: 10px 20px;
-      margin-top: 20px;
       border: none;
       border-radius: 5px;
       background-color: #007bff;
       color: #fff;
       font-size: 16px;
       cursor: pointer;
-      transition: background-color 0.3s;
     }
     button:hover {
       background-color: #0056b3;
     }
-    .loading {
-      display: none;
-      text-align: center;
-    }
-    .loading img {
-      width: 50px;
-      height: 50px;
-    }
-    .error {
-      color: red;
-      text-align: center;
-    }
-    .result {
-      text-align: center;
-      margin-top: 20px;
-    }
-    .result p {
-      font-size: 18px;
-      color: #333;
-    }
   </style>
-  <script>
-    function showLoading() {
-      document.getElementById('loading').style.display = 'block';
-    }
-  </script>
 </head>
 <body>
   <div class="container">
-    <h1>Median Home Price Prediction</h1>
-    <p class="description">This application predicts the median value of homes in Boston suburbs based on various factors. Please enter the required values and click "Predict" to see the estimated home price.</p>
-    <form action="{{ url_for('predict')}}" method="post" onsubmit="showLoading()">
+    <h1>Predict Median Home Price</h1>
+    <form action="{{ url_for('predict')}}" method="post">
       <label for="CRIM">Crime Rate</label>
-      <input type="text" name="CRIM" placeholder="Crime rate per capita, e.g., 0.02731" required />
-
+      <input type="text" name="CRIM" placeholder="Crime rate per capita" required="required" />
       <label for="ZN">Zone Percentage of Large Lots</label>
-      <input type="text" name="ZN" placeholder="% of residential properties over 25k sq ft, e.g., 18.0" required />
-
+      <input type="text" name="ZN" placeholder="% of residential properties over 25k sq ft:" required="required" />
       <label for="INDUS">Zone Percentage of Industrial Lots</label>
-      <input type="text" name="INDUS" placeholder="% of industrial acreage, e.g., 2.31" required />
-
-      <label for="CHAS">Charles River dummy</label>
-      <select id="CHAS" name="CHAS" required>
+      <input type="text" name="INDUS" placeholder="% of industrial acreage:" required="required" />
+      <label for="CHAS">Charles River dummy:</label>
+      <select id="CHAS" name="CHAS" placeholder="Charles River dummy variable" required="required">
         <option value="0">0</option>
         <option value="1">1</option>
       </select>
-
+      <br>  
       <label for="NOX">Nitric Oxide Concentration</label>
-      <input type="text" name="NOX" placeholder="parts per 10 million, e.g., 0.538" required />
-
+      <input type="text" name="NOX" placeholder="parts per 10 million" required="required" />
       <label for="RM">Rooms</label>
-      <input type="text" name="RM" placeholder="average # of rooms, e.g., 6.575" required />
-
+      <input type="text" name="RM" placeholder="average # of rooms" required="required" />
       <label for="AGE">Age of neighborhood</label>
-      <input type="text" name="AGE" placeholder="% of homes built before 1940, e.g., 65.2" required />
-
+      <input type="text" name="AGE" placeholder="% of homes built before 1940:" required="required" />
       <label for="DIS">Distance to Employment</label>
-      <input type="text" name="DIS" placeholder="Weighted distance to five Boston employment centers, e.g., 4.0900" required />
-
+      <input type="text" name="DIS" placeholder="Weighted distance to five Boston employment centers" required="required" />
       <label for="RAD">Highway Accessibility</label>
-      <input type="text" name="RAD" placeholder="Radial highway accessibility index (integer value), e.g., 1" required />
-
+      <input type="text" name="RAD" placeholder="Radial highway accessibility index (integer value)" required="required" />
       <label for="PTRATIO">Pupil to Teacher Ratio</label>
-      <input type="text" name="PTRATIO" placeholder="Student to teacher ratio, e.g., 15.3" required />
-
+      <input type="text" name="PTRATIO" placeholder="Student to teacher ratio" required="required" />
       <label for="B">Black Residents</label>
-      <input type="text" name="B" placeholder="1000(Bk - 0.63)^2 where Bk is the proportion of blacks by area, e.g., 396.90" required />
-
+      <input type="text" name="B" placeholder="1000(Bk - 0.63)^2 where Bk is the proportion of blacks
+ by area" required="required" />
       <label for="LSTAT">Low Status Households</label>
-      <input type="text" name="LSTAT" placeholder="% of homes classified as lower status, e.g., 4.98" required />
-
+      <input type="text" name="LSTAT" placeholder="% of homes classified as lower status" required="required" />
       <button type="submit">Predict</button>
     </form>
-    <div id="loading" class="loading">
-      <img src="https://i.gifer.com/YCZH.gif" alt="Loading...">
-    </div>
-    <div class="result">
-      <p>{{ prediction_text }}</p>
-      <p>{{ mean_text }}</p>
-      <p>{{ std_dev_text }}</p>
-      <p>{{ confidence_interval_text }}</p>
-    </div>
-    <div class="error">
-      <p>{{ error_text }}</p>
-    </div>
+    <br>
+    <p>{{ prediction_text }}</p>
   </div>
 </body>
 </html>
