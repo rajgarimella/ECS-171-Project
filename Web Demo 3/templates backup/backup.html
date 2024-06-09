@@ -1,0 +1,27 @@
+<html >
+<head>
+  <title>Machine Learning Model Deployment</title>
+</head>
+<body>
+ <div>
+    <h1>Predict Iris Species</h1>
+    <form action="{{ url_for('predict')}}" method="post">
+        <input type="text" name="CRIM" placeholder="Crime Rate:" required="required" />
+        <input type="text" name="ZN" placeholder="Zone proportion of residential over 25k:" required="required" />
+        <input type="text" name="INDUS" placeholder="Proportion of Industrial acreage:" required="required" />
+        <input type="text" name="CHAS" placeholder="Charles River dummy:" required="required" />
+        <input type="text" name="NOX" placeholder="Nitric Oxide concentration:" required="required" />
+        <input type="text" name="RM" placeholder="Rooms:" required="required" />
+        <input type="text" name="AGE" placeholder="Proportion of homes built before 1940:" required="required" />
+        <input type="text" name="DIS" placeholder="Distance to employment:" required="required" />
+        <input type="text" name="RAD" placeholder="Radial highway accessibility:" required="required" />
+        <input type="text" name="PTRATIO" placeholder="Student to teacher ratio:" required="required" />
+        <input type="text" name="B" placeholder="Proportion of black residents:" required="required" />
+        <input type="text" name="LSTAT" placeholder="Lower status %" required="required" />
+        <button type="submit">Predict</button>
+    </form>
+   <br>
+   {{ prediction_text }}
+ </div>
+</body>
+</html>

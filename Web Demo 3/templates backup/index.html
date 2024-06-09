@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Machine Learning Model Deployment</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 50%;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    input[type="text"] {
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Predict Median Home Price</h1>
+    <form action="{{ url_for('predict')}}" method="post">
+      <label for="CRIM">Crime Rate</label>
+      <input type="text" name="CRIM" placeholder="Crime rate per capita" required="required" />
+      <label for="ZN">Zone Percentage of Large Lots</label>
+      <input type="text" name="ZN" placeholder="% of residential properties over 25k sq ft:" required="required" />
+      <label for="INDUS">Zone Percentage of Industrial Lots</label>
+      <input type="text" name="INDUS" placeholder="% of industrial acreage:" required="required" />
+      <label for="CHAS">Charles River dummy:</label>
+      <select id="CHAS" name="CHAS" placeholder="Charles River dummy variable" required="required">
+        <option value="0">0</option>
+        <option value="1">1</option>
+      </select>
+      <br>  
+      <label for="NOX">Nitric Oxide Concentration</label>
+      <input type="text" name="NOX" placeholder="parts per 10 million" required="required" />
+      <label for="RM">Rooms</label>
+      <input type="text" name="RM" placeholder="average # of rooms" required="required" />
+      <label for="AGE">Age of neighborhood</label>
+      <input type="text" name="AGE" placeholder="% of homes built before 1940:" required="required" />
+      <label for="DIS">Distance to Employment</label>
+      <input type="text" name="DIS" placeholder="Weighted distance to five Boston employment centers" required="required" />
+      <label for="RAD">Highway Accessibility</label>
+      <input type="text" name="RAD" placeholder="Radial highway accessibility index (integer value)" required="required" />
+      <label for="PTRATIO">Pupil to Teacher Ratio</label>
+      <input type="text" name="PTRATIO" placeholder="Student to teacher ratio" required="required" />
+      <label for="B">Black Residents</label>
+      <input type="text" name="B" placeholder="1000(Bk - 0.63)^2 where Bk is the proportion of blacks
+ by area" required="required" />
+      <label for="LSTAT">Low Status Households</label>
+      <input type="text" name="LSTAT" placeholder="% of homes classified as lower status" required="required" />
+      <button type="submit">Predict</button>
+    </form>
+    <br>
+    <p>{{ prediction_text }}</p>
+  </div>
+</body>
+</html>
